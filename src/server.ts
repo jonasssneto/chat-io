@@ -9,13 +9,9 @@ const server: http.Server = http.createServer(app);
 
 app.use(cors());
 app.use(express.static('public'));
-
-const io: Server = new Server(server, {
-  cors: {
-    origin: '*',
-  },
-});
+const io: Server = new Server(server);
 
 sockets(io);
+
 
 server.listen(3000, () => console.log(`Server is running on port 3000`));
