@@ -8,6 +8,7 @@ Este é um projeto de chat simples desenvolvido em Node.js, utilizando TypeScrip
 - [X] **Múltiplas Salas** Os usuarios tem a opção de se conectar em salas diferentes.
 - [X] Salvar o histórico de mensagens em um banco de dados.
 - [ ] Adicionar autenticação de usuários.
+- [ ] Refatorar o front-end.
 
 ## Stack utilizada
 
