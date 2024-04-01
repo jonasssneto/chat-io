@@ -4,8 +4,8 @@ Este é um projeto de chat simples desenvolvido em Node.js, utilizando TypeScrip
 
 ## Funcionalidades
 
-- **Conversa em Tempo Real:** Os usuários podem trocar mensagens em tempo real.
-- **Múltiplas Salas** Os usuarios tem a opção de se conectar em salas diferentes.
+- [X] **Conversa em Tempo Real:** Os usuários podem trocar mensagens em tempo real.
+- [X] **Múltiplas Salas** Os usuarios tem a opção de se conectar em salas diferentes.
 - [ ] Salvar o histórico de mensagens em um banco de dados.
 - [ ] Adicionar autenticação de usuários.
 - [ ] Adicionar a funcionalidade de envio de arquivos.
