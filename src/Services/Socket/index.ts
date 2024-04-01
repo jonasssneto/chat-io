@@ -10,10 +10,9 @@ export class Sockets {
   public connect() {
     this.io.on("connection", (socket: Socket) => {
       console.log("New connection");
-
       this.join(this.io, socket);
       this.sendMessage(this.io, socket);
-
+      this.loadPreviousMessages(this.io, socket);
     });
   }
 
@@ -31,6 +30,8 @@ export class Sockets {
 
       this.users.push(user);
       socket.join(room);
+
+      io.to(room).emit("users", this.users);
     });
   }
 
@@ -38,6 +39,13 @@ export class Sockets {
     socket.on("sendMessage", (message: Message) => {
       this.messages.push(message);
       io.to(message.room).emit("message", message);
+    });
+  }
+
+  private loadPreviousMessages(io: Server, socket: Socket) {
+    socket.on("loadPreviousMessages", (room: string) => {
+      const messages = this.messages.filter((message) => message.room === room);
+      io.to(room).emit("previousMessages", messages);
     });
   }
 }
