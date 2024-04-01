@@ -6,12 +6,17 @@
     <title>CHAT</title>
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
     <script src="script.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <h1>CHAT</h1>
     <div id="nicknameInput">
       <input type="text" id="nickname" placeholder="Enter your nickname" />
+      <select id="room">
+        <option value="javascript">JavaScript</option>
+        <option value="python">Python</option>
+        <option value="ruby">Ruby</option>
+      </select>
       <button onclick="joinChat()">Join Chat</button>
     </div>
     <div id="chatContainer" style="display: none">

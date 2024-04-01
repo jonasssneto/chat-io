@@ -1,16 +1,19 @@
 const socket = io("http://localhost:3000/");
 let nickname = "";
+let room = "";
 
 function joinChat() {
-  nickname = document.getElementById("nickname").value;
-  if (nickname.trim() === "") {
+  nickname = document.getElementById("nickname").value.trim();
+  room = document.getElementById("room").value;
+
+  if (nickname === "") {
     alert("Please enter a nickname.");
     return;
   }
   document.getElementById("nicknameInput").style.display = "none";
   document.getElementById("chatContainer").style.display = "block";
-  socket.emit("join", { username: nickname, room: "default" });
-  socket.emit("loadPreviousMessages", "default");
+  socket.emit("join", { username: nickname, room: room });
+  socket.emit("loadPreviousMessages", room);
 }
 
 socket.on("previousMessages", (messages) => {
@@ -22,21 +25,23 @@ socket.on("previousMessages", (messages) => {
 socket.on("message", (message) => {
   const { user, text } = message;
 
-  if (!text) return alert("Please enter a message.");
+  if (!text) return console.error("Received message with no text.");
 
-  const messageElement = document.createElement("div");
-  messageElement.innerText = `${user}: ${text}`;
-  document.getElementById("messages").appendChild(messageElement);
+  displayMessage(message);
 });
 
 function sendMessage() {
   const messageInput = document.getElementById("messageInput");
-  const message = messageInput.value;
+  const message = messageInput.value.trim();
+  if (message === "") {
+    alert("Please enter a message.");
+    return;
+  }
   messageInput.value = "";
   socket.emit("sendMessage", {
     user: nickname,
     text: message,
-    room: "default",
+    room,
   });
 }
 
