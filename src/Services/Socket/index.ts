@@ -1,4 +1,5 @@
 import { Server, Socket } from "socket.io";
+import { MessageServices } from "./message";
 import { Message, User } from "./type";
 
 export class Sockets {
@@ -36,15 +37,16 @@ export class Sockets {
   }
 
   private sendMessage(io: Server, socket: Socket) {
-    socket.on("sendMessage", (message: Message) => {
+    socket.on("sendMessage", async (message: Message) => {
       this.messages.push(message);
+      await MessageServices.save(message);
       io.to(message.room).emit("message", message);
     });
   }
 
   private loadPreviousMessages(io: Server, socket: Socket) {
-    socket.on("loadPreviousMessages", (room: string) => {
-      const messages = this.messages.filter((message) => message.room === room);
+    socket.on("loadPreviousMessages", async (room: string) => {
+      const messages = await MessageServices.getByRoom(room);
       io.to(room).emit("previousMessages", messages);
     });
   }
